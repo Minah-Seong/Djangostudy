@@ -1,9 +1,20 @@
 {% if question_list %}
     <ul>
     {% for question in question_list %}
-        <li><a href="/pybo/{{ question.id }}/">{{ question.subject }}</a></li>
+        <li><a href="{% url 'pybo:detail' question.id %}">{{ question.subject }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
     <p>질문이 없습니다.</p>
 {% endif %}
+
+
+<!--url 링크 구조가 변경된다면 실제 링크 대신-->
+<!--링크의 주소가 매핑되어 있는 별칭을 사용해야 한다-->
+
+<!--/pybo/{{ question.id }} 링크가-->
+<!--{% url 'detail' question.id %}로 변경되었다.-->
+<!--question.id : URL 매핑에 정의된 int:question_id에 전달해야 하는 값-->
+
+<!--다른 앱과의 url 충돌을 방지하기 위해-->
+<!--detail앞에 pybo라는 네임스페이스 붙임-->

@@ -1,5 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.utils import timezone
 from .models import Question
+
 # from django.http import HttpResponse
 
 #def index(request):
@@ -22,7 +24,7 @@ def detail(request, question_id):
    """
    pybo 내용 출력
    """
-   question = get_object_or_404(id=question_id, pk=question_id)
+   question = get_object_or_404(Question, pk=question_id)
    context = {'question': question}
    return render(request, 'pybo/question_detail.html', context)
 
@@ -30,3 +32,47 @@ def detail(request, question_id):
 # question_id에는 URL 매핑시 저장된 question_id가 전달달
 # get_object_or_404(Question, pk=question_id)로 변경
 # pk : Question 모델의 primary key(id)
+
+def answer_create(request, question_id):
+   """
+   pybo 답변등록
+   """
+   question = get_object_or_404(Question, pk=question_id)
+   question.answer_set.create(content=request.POST.get('content'), create_date=timezone.now())
+   return redirect('pybo:detail', question_id=question.id)
+
+# answer_create 함수의 매개변수 question_id는 URL 매핑에 의해 그 값이 전달됨
+#    ex) http://locahost:8000/pybo/answer/create/2/ 라는 페이지를 요청하면
+#       question_id에는 2라는 값 전달됨
+# 답변 등록시 텍스트창에 입력한 내용은 answer_create 함수의 첫번째 매개변수 requset를 통해 읽기 가능
+#    requset.POST.get('content') : POST로 전송된 폼(form) 데이터 항목 중 content 값을 의미
+# 답변 생성 위해 qustion.answer_set.create를 사용
+#    qustion.answer_set.create : 질문의 답변
+#    -> ForeginKey로 질문과 답변이 연결되어있어 사용 가능
+
+# 답변 저장 다른 방법
+# def answer_create(request, question_id):
+#    """
+#    pybo 답변등록
+#    """
+#    question = get_object_or_404(Question, pk=question_id)
+#    answer = Answer(question=question, content=request.POST.get('content'), create_date=timezone.now())
+#    answer.save()
+#    return redirect('pybo:detail', question_id=question.id)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

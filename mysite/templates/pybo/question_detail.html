@@ -2,3 +2,26 @@
 <div>
     {{question.content}}
 </div>
+
+<!--등록한 답변 조회-->
+
+<h5>{{ question.answer_set.count }}개의 답변이 있습니다.</h5>
+<div>
+    <ul>
+        {% for answer in question.answer_set.all %}
+            <li>{{ answer.content }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<!--답변등록 폼 추가-->
+
+<form action="{% url 'pybo:answer_create' question.id %}" method="post">
+{% csrf_token %}
+<textarea name="content" id="content" rows="15"></textarea>
+<input type="submit" value="답변등록">
+</form>
+
+<!--csrf_token: form으로 전송한 데이터가 실제 웹 페이지에서 작성한 데이터인지 판단해주는 가늠자-->
+<!--     form 태그 바로 밑에 csrf 토큰 태그를 항상 위치시키도록 해야-->
+
