@@ -1,20 +1,61 @@
-{% if question_list %}
-    <ul>
-    {% for question in question_list %}
-        <li><a href="{% url 'pybo:detail' question.id %}">{{ question.subject }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>질문이 없습니다.</p>
-{% endif %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+<div class="container my-3">
+    <table class="table">
+        <thead>
+        <tr class="thead-dark">
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성일시</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if question_list %}
+        {% for question in question_list %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>
+                <a href="{% url 'pybo:detail' question.id %}">{{ question.subject }}</a>
+            </td>
+            <td>{{ question.create_date }}</td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="3">질문이 없습니다.</td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+
+
+<!--{% if question_list %}-->
+<!--    <ul>-->
+<!--    {% for question in question_list %}-->
+<!--        <li><a href="{% url 'pybo:detail' question.id %}">{{ question.subject }}</a></li>-->
+<!--    {% endfor %}-->
+<!--    </ul>-->
+<!--{% else %}-->
+<!--    <p>질문이 없습니다.</p>-->
+<!--{% endif %}-->
 
 
 <!--url 링크 구조가 변경된다면 실제 링크 대신-->
 <!--링크의 주소가 매핑되어 있는 별칭을 사용해야 한다-->
 
+
 <!--/pybo/{{ question.id }} 링크가-->
-<!--{% url 'detail' question.id %}로 변경되었다.-->
+<!--% url 'detail' question.id %로 변경되었다.-->
 <!--question.id : URL 매핑에 정의된 int:question_id에 전달해야 하는 값-->
 
 <!--다른 앱과의 url 충돌을 방지하기 위해-->
 <!--detail앞에 pybo라는 네임스페이스 붙임-->
+
+
+<!--기존에는 <ul> 태그로 심플하게 작성했던 질문 목록을 테이블 구조로 변경했다.-->
+<!--    그리고 번호와 작성일시 항목도 추가했다.-->
+<!--    번호는 for 문의 현재 순서를 의미하는 {{ forloop.counter }}를 이용했다.-->
+<!--여기서 사용된 class="container my-3", class="table", class="thead-dark 등은-->
+<!--    부트스트랩 스타일에 정의되어 있는 클래스들이다. 부트스트랩에 대한 자세한 내용은 다음 URL을 참조하자.-->
+<!--    https://getbootstrap.com/docs/4.6/getting-started/introduction/-->

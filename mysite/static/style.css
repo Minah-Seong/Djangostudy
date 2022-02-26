@@ -1,0 +1,8 @@
+textarea {
+    width:100%;
+}
+input[type=submit] {
+    margin-top:10px;
+}
+
+/* css 작성 후 템플릿(html)에 스타일 적용 */
