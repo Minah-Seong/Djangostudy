@@ -20,6 +20,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('pybo/', include('pybo.urls')),
-    # pybo/에 대한 url매핑 : pybo/로 시작하는 페이지를 요청하면 pybo/urls.py 파일의 매핑 정보를 읽어서 처리
-    # pybo/로 시작하는 URL을 추가해야 할 때 config/urls 파일을 수정할 필요없이 pybo/urls.py 파일을 수정하면 됨
 ]
+# pybo/에 대한 url매핑 : pybo/로 시작하는 페이지를 요청하면 pybo/urls.py 파일의 매핑 정보를 읽어서 처리
+# pybo/로 시작하는 URL을 추가해야 할 때 config/urls 파일을 수정할 필요없이 pybo/urls.py 파일을 수정하면 됨
