@@ -29,8 +29,11 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+# 데이터베이스가 필요한 앱만 migration이 필요
+# 파이보 앱 등록
 
 INSTALLED_APPS = [
+    'pybo.apps.PyboConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+# PyboConfig : pybo/apps.py 파일에 있는 클래스(자동생성)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -79,7 +83,9 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+# 데이터베이스 파일은 BASE_DIR 디렉터리 밑에 db.sqlite3 파일에 저장
+# 현재 프로젝트의 BASE_DIR은 \mysite
+# SQLite : 개발용, 소규모 프로젝트에서 사용되는 가벼운 파일 기반의 데이터베이스
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
